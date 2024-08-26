@@ -39,11 +39,11 @@ BEGIN;
 	VALUES ('789EF', 'Arroz', 50, 5000);
 
 	INSERT INTO pedidos (id, fecha, cantidad, valor_total, id_cliente, id_producto) 
-	VALUES ('1234', '2024-08-05', 2, 3000, '1091354977', '123AB');
+	VALUES ('2024-08-05', 2, 3000, '1091354977', '123AB');
 	INSERT INTO pedidos (id, fecha, cantidad, valor_total, id_cliente, id_producto) 
-	VALUES ('4321', '2024-05-03', 1, 2500, '60354761', '456CD');
+	VALUES ('2024-05-03', 1, 2500, '60354761', '456CD');
 	INSERT INTO pedidos (id, fecha, cantidad, valor_total, id_cliente, id_producto) 
-	VALUES ('1243', '2024-09-30', 5, 25000, '1091354977', '789EF');
+	VALUES ('2024-09-30', 5, 25000, '1091354977', '789EF');
 
 	UPDATE clientes
 	SET nombre = 'Pedro Flores'
