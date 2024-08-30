@@ -45,7 +45,7 @@ BEGIN;
 	INSERT INTO pedidos (id, fecha, cantidad, valor_total, id_cliente, id_producto) 
 	VALUES ('3','2024-09-30', 5, 25000, '1091354977', '789EF');
 
-	savepoint;
+	savepoint restauracion;
 
 	UPDATE clientes SET nombre = 'Pedro Flores' WHERE identificacion = '1091354977';
 	UPDATE clientes SET edad = 40 WHERE identificacion = '60354761';
@@ -62,9 +62,7 @@ BEGIN;
 	
 	DELETE FROM productos where codigo= '123AB';
 	
-	rollback to savepoint;
-	
-ROLLBACK;
+	rollback to savepoint restauracion;
 
 	select * from clientes;
 	select * from productos;
