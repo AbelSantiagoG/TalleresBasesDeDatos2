@@ -43,12 +43,11 @@ begin
 	
 	for v_factura_id, v_fecha_factura, v_pedido_estado IN SELECT id, fecha, pedido_estado FROM facturas
 	loop
-		--if (v_fecha_factura BETWEEN p_fecha_inicio AND p_fecha_final) THEN
-			RAISE NOTICE 'SAPA';
+		if (v_fecha_factura BETWEEN p_fecha_inicio AND p_fecha_final) THEN
+			RAISE NOTICE 'si';
 			insert into auditorias(id, fecha_inicio, fecha_final, factura_id, pedido_estado) values(default, p_fecha_inicio, p_fecha_final, v_factura_id, v_pedido_estado);
-		--end if;
+		end if;
 	end loop;
-		
 end;
 $$
 
@@ -79,17 +78,24 @@ as $$
 declare 
 	v_dia integer := 1;
 	v_identificacion_cliente varchar;
+	v_cantidad int;
+	v_valor_total float;
+	v_id_factura varchar;
+	v_id_producto varchar;
+
 begin
 	
 	WHILE v_dia <= 30 LOOP
 		for v_identificacion_cliente IN SELECT identificacion FROM clientes
 		loop
-			insert into facturas(id, fecha, cantidad, valor_total, pedido_estado, id_cliente, id_producto) values('1', '2024-08-30', 5, 6000, 'ENTREGADO', '1091354977', '1234');
+			v_id_factura := gen_random_uuid();
+			v_cantidad := FLOOR(RANDOM() * 20) + 1;
+			v_valor_total := v_cantidad * (FLOOR(RANDOM() * 100) + 1);
+			v_id_producto := (SELECT codigo FROM productos ORDER BY RANDOM() LIMIT 1);
+			insert into facturas(id, fecha, cantidad, valor_total, pedido_estado, id_cliente, id_producto) values(v_id_factura, '2024-08-30', v_cantidad, v_valor_total, 'ENTREGADO', v_identificacion_cliente, '1234');
 		end loop;
 		v_dia := v_dia + 1;
 	END LOOP;
-	
-		
 end;
 $$
 
@@ -112,4 +118,3 @@ call generar_auditoria('2024-12-01', '2024-12-31');
 select * from auditorias;
 
 -- truncate auditorias ;
-x	
