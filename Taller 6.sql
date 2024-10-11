@@ -93,7 +93,7 @@ select * from clientes;
 select * from pagos;
 select * from servicios;
 
-select transacciones_total_mes('2024-02-027', 1);
+select transacciones_total_mes('2024-02-27', 1);
 --drop table clientes;
 --drop table servicios;
 --drop table pagos;

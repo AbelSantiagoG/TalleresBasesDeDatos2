@@ -41,11 +41,11 @@ declare
 	v_fecha_factura DATE;
 begin
 	
-	for v_factura_id, v_fecha_factura, v_pedido_estado IN SELECT id, fecha, pedido_estado FROM facturas
+	for v_factura_id, v_fecha_factura, v_pedido_estado IN SELECT id, fecha, pedido_estado FROM "taller5".facturas
 	loop
 		if (v_fecha_factura BETWEEN p_fecha_inicio AND p_fecha_final) THEN
 			RAISE NOTICE 'si';
-			insert into auditorias(id, fecha_inicio, fecha_final, factura_id, pedido_estado) values(default, p_fecha_inicio, p_fecha_final, v_factura_id, v_pedido_estado);
+			insert into "taller5".auditorias(id, fecha_inicio, fecha_final, factura_id, pedido_estado) values(default, p_fecha_inicio, p_fecha_final, v_factura_id, v_pedido_estado);
 		end if;
 	end loop;
 end;
@@ -60,7 +60,7 @@ declare
 	v_nombre_producto varchar;
 begin
 	
-	for v_stock_actual, v_nombre_producto IN SELECT stock, nombre FROM productos 
+	for v_stock_actual, v_nombre_producto IN SELECT stock, nombre FROM "taller5".productos 
 	loop
 		RAISE NOTICE 'El nombre del producto es: %', v_nombre_producto;
 		RAISE NOTICE 'El stock actual del producto es: %', v_stock_actual;
@@ -86,13 +86,13 @@ declare
 begin
 	
 	WHILE v_dia <= 30 LOOP
-		for v_identificacion_cliente IN SELECT identificacion FROM clientes
+		for v_identificacion_cliente IN SELECT identificacion FROM "taller5".clientes
 		loop
 			v_id_factura := gen_random_uuid();
 			v_cantidad := FLOOR(RANDOM() * 20) + 1;
 			v_valor_total := v_cantidad * (FLOOR(RANDOM() * 100) + 1);
-			v_id_producto := (SELECT codigo FROM productos ORDER BY RANDOM() LIMIT 1);
-			insert into facturas(id, fecha, cantidad, valor_total, pedido_estado, id_cliente, id_producto) values(v_id_factura, '2024-08-30', v_cantidad, v_valor_total, 'ENTREGADO', v_identificacion_cliente, '1234');
+			v_id_producto := (SELECT codigo FROM "taller5".productos ORDER BY RANDOM() LIMIT 1);
+			insert into "taller5".facturas(id, fecha, cantidad, valor_total, pedido_estado, id_cliente, id_producto) values(v_id_factura, '2024-08-30', v_cantidad, v_valor_total, 'ENTREGADO', v_identificacion_cliente, '1234');
 		end loop;
 		v_dia := v_dia + 1;
 	END LOOP;
@@ -114,6 +114,7 @@ UPDATE facturas SET pedido_estado = 'PENDIENTE' WHERE id = '1';
 
 call obtener_total_stock();
 call generar_auditoria('2024-12-01', '2024-12-31');
+call simular_ventas_mes();
 
 select * from auditorias;
 
