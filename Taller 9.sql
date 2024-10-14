@@ -8,7 +8,7 @@ CREATE TABLE empleados (
 	identificacion varchar primary key,
 	nombre varchar,
 	tipo_contrato_id varchar,
-	foreign key(tipo_contrato_id) references tipo_contrato(id)
+	foreign key(tipo_contrato_id) references taller9.tipo_contrato(id)
 );
 create table conceptos(
 	codigo varchar primary key,
@@ -24,15 +24,15 @@ CREATE TABLE nominas (
 	total_deducciones numeric,
 	total numeric,
 	cliente_id varchar,
-	foreign key(cliente_id) references empleados(identificacion)
+	foreign key(cliente_id) references taller9.empleados(identificacion)
 );
 CREATE TABLE detalles_nomina (
 	id varchar primary key,
 	concepto_id varchar,
 	valor numeric,
 	nomina_id varchar,
-	foreign key(concepto_id) references conceptos(codigo),
-	foreign key(nomina_id) references nominas(id)
+	foreign key(concepto_id) references taller9.conceptos(codigo),
+	foreign key(nomina_id) references taller9.nominas(id)
 );
 
 
@@ -50,24 +50,24 @@ BEGIN
     FOR i IN 1..10 
 	LOOP
         salario_total := round((random() * 4000 + 1000) * 100) / 100; 
-        INSERT INTO tipo_contrato (id, descripcion, cargo, salario_total) 
+        INSERT INTO taller9.tipo_contrato (id, descripcion, cargo, salario_total) 
         VALUES ('C' || i, 'Contrato ' || i, 'Cargo ' || i, salario_total);
     END LOOP;
 
     FOR i IN 1..10 
 	LOOP
-        INSERT INTO empleados (identificacion, nombre, tipo_contrato_id) 
+        INSERT INTO taller9.empleados (identificacion, nombre, tipo_contrato_id) 
         VALUES ('E' || i, 'Empleado ' || i, 'C' || i);
     END LOOP;
 
 	FOR i IN 1..5 
 	LOOP
-    	INSERT INTO conceptos (codigo, nombre, porcentaje) VALUES(''||i, 'salario', 100);
+    	INSERT INTO taller9.conceptos (codigo, nombre, porcentaje) VALUES(''||i, 'salario', 100);
  	END LOOP;
 
     FOR i IN 1..5 
 	LOOP
-        INSERT INTO nominas (id, mes, ano, fecha_pago, total_devengado, total_deducciones, total, cliente_id) 
+        INSERT INTO taller9.nominas (id, mes, ano, fecha_pago, total_devengado, total_deducciones, total, cliente_id) 
         VALUES (
             'N' || i, 
             meses[(i % 5) + 1], 
@@ -82,7 +82,7 @@ BEGIN
 
     FOR i IN 1..15 LOOP
         valor_detalle := round((random() * 1000 + 100) * 100) / 100; 
-        INSERT INTO detalles_nomina (id, concepto_id, valor, nomina_id) 
+        INSERT INTO taller9.detalles_nomina (id, concepto_id, valor, nomina_id) 
         VALUES ('D' || i, '' || ((i % 5) + 1), valor_detalle, 'N' || ((i % 5) + 1));
     END LOOP;
 END;
@@ -103,7 +103,7 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT e.nombre, n.total_devengado, n.total_deducciones, n.total FROM empleados e
+    SELECT e.nombre, n.total_devengado, n.total_deducciones, n.total FROM taller9.empleados e
     INNER JOIN nominas n ON e.identificacion = n.cliente_id
     WHERE e.identificacion = p_identificacion AND n.mes = p_mes AND n.ano = p_ano;
 END;
@@ -127,7 +127,7 @@ AS $$
 BEGIN
     RETURN QUERY
     SELECT e.nombre, n.fecha_pago, n.ano, n.mes, n.total_devengado, n.total_deducciones, n.total
-    FROM empleados e
+    FROM taller9.empleados e
     INNER JOIN nominas n ON e.identificacion = n.cliente_id
     WHERE e.tipo_contrato_id = p_tipo_contrato_id;
 END;
