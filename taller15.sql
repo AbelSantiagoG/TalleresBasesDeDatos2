@@ -1,4 +1,4 @@
-CREATE TABLE libros (
+CREATE TABLE taller15.libros (
     isbn VARCHAR PRIMARY KEY,
     descripcion XML
 );
@@ -10,21 +10,21 @@ CREATE OR REPLACE PROCEDURE guardar_libro(
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    v_titulo VARCHAR;
+    v_titulo TEXT;
 BEGIN
-    SELECT xpath('//libro/titulo/text()', p_descripcion) INTO v_titulo;
+    SELECT xpath('//libro/titulo/text()', p_descripcion)::TEXT[] INTO v_titulo;
 
-    IF EXISTS (SELECT 1 FROM taller15. libros WHERE isbn = p_isbn) THEN
+    IF EXISTS (SELECT 1 FROM taller15.libros WHERE isbn = p_isbn) THEN
         RAISE EXCEPTION 'El ISBN ya existe en la base de datos.';
     END IF;
 
-    IF EXISTS (SELECT 1 FROM taller15.libros WHERE xpath('//libro/titulo/text()', descripcion) = ARRAY[v_titulo]) THEN
+    IF EXISTS (SELECT 1 FROM taller15.libros WHERE xpath('//libro/titulo/text()', descripcion)::TEXT[] = ARRAY[v_titulo]) THEN
         RAISE EXCEPTION 'El título ya existe en la base de datos.';
     END IF;
 
     INSERT INTO taller15.libros (isbn, descripcion)
     VALUES (p_isbn, p_descripcion);
-END 
+END
 $$;
 
 CREATE OR REPLACE PROCEDURE actualizar_libro(
@@ -56,18 +56,20 @@ RETURNS VARCHAR
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    v_autor VARCHAR;
+    v_autor TEXT;
+    v_autores XML[];
 BEGIN
-    SELECT xpath('//libro/autor/text()', descripcion) INTO v_autor
+    SELECT xpath('//libro/autor/text()', descripcion) INTO v_autores
     FROM taller15.libros
     WHERE isbn = p_isbn;
 
-    IF v_autor IS NULL THEN
+    IF array_length(v_autores, 1) IS NULL THEN
         RETURN 'Autor no encontrado';
     ELSE
-        RETURN v_autor[1];  
+        v_autor := (v_autores[1]::TEXT);
+        RETURN v_autor;
     END IF;
-END 
+END
 $$;
 
 CREATE OR REPLACE FUNCTION obtener_autor_libro_por_titulo(
@@ -77,19 +79,20 @@ RETURNS VARCHAR
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    v_autor VARCHAR;
+    v_autor TEXT;
+    v_autores XML[];
 BEGIN
-    SELECT xpath('//libro[titulo/text() = $1]/autor/text()', descripcion)
-    INTO v_autor
+    SELECT xpath('//libro/autor/text()', descripcion) INTO v_autores
     FROM taller15.libros
-    WHERE xpath('//libro/titulo/text()', descripcion) = ARRAY[p_titulo];
+    WHERE xpath('//libro/titulo/text()', descripcion)::TEXT = p_titulo;
 
-    IF v_autor IS NULL THEN
+    IF array_length(v_autores, 1) IS NULL THEN
         RETURN 'Autor no encontrado';
     ELSE
-        RETURN v_autor[1];  
+        v_autor := (v_autores[1]::TEXT);
+        RETURN v_autor;
     END IF;
-END 
+END
 $$;
 
 CREATE OR REPLACE FUNCTION obtener_libros_por_anio(
@@ -100,12 +103,11 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT isbn, descripcion
-    FROM taller15.libros
-    WHERE xpath('//libro/anio/text()', descripcion) = ARRAY[p_anio::text];
-END 
+    SELECT l.isbn, l.descripcion
+    FROM taller15.libros l
+    WHERE xpath('//libro/anio/text()', l.descripcion)::TEXT[] = ARRAY[p_anio::TEXT];
+END
 $$;
-
 
 CALL guardar_libro('123456789', '<libro><titulo>El Gran Libro</titulo><autor>Juan Pérez</autor></libro>');
 CALL actualizar_libro('123456789', '<libro><titulo>El Gran Libro</titulo><autor>Juan Pérez</autor><anio>2023</anio></libro>');
