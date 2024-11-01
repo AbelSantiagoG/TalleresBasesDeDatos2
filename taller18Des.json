@@ -1,0 +1,251 @@
+{
+    "ProductoID": "1",
+    "Nombre": "Camiseta",
+    "Descripcion": "Camiseta de algodón",
+    "Precio": 20,
+    "Categoria":{
+        "CategoriaID": 1,
+        "NombreCategoria": "Ropa"
+    },
+    "Comentarios":[
+        {
+            "ComentarioID": 1,
+            "Texto": "Muy cómoda",
+            "Cliente": "Juan"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Buena calidad",
+            "Cliente": "María"
+        }
+    ]
+}
+
+{
+    "ProductoID": "2",
+    "Nombre": "Pantalones",
+    "Descripcion": "Pantalones de mezclilla",
+    "Precio": 35,
+    "Categoria": {
+        "CategoriaID": 1,
+        "NombreCategoria": "Ropa"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Se ajustan muy bien",
+            "Cliente": "Carlos"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Son duraderos",
+            "Cliente": "Ana"
+        }
+    ]
+}
+
+{
+    "ProductoID": "3",
+    "Nombre": "Zapatos",
+    "Descripcion": "Zapatos deportivos",
+    "Precio": 50,
+    "Categoria": {
+        "CategoriaID": 1,
+        "NombreCategoria": "Ropa"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Son muy cómodos",
+            "Cliente": "Pedro"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Excelentes para correr",
+            "Cliente": "Lucía"
+        }
+    ]
+}
+
+{
+    "ProductoID": "4",
+    "Nombre": "Gorra",
+    "Descripcion": "Gorra ajustable de béisbol",
+    "Precio": 15,
+    "Categoria": {
+        "CategoriaID": 1,
+        "NombreCategoria": "Ropa"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Buen diseño",
+            "Cliente": "Raúl"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Me gusta el material",
+            "Cliente": "Elena"
+        }
+    ]
+}
+
+{
+    "ProductoID": "5",
+    "Nombre": "Reloj",
+    "Descripcion": "Reloj digital sumergible",
+    "Precio": 80,
+    "Categoria": {
+        "CategoriaID": 2,
+        "NombreCategoria": "Accesorios"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Resistente al agua, perfecto",
+            "Cliente": "Sofía"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Muy funcional y elegante",
+            "Cliente": "Luis"
+        }
+    ]
+}
+
+{
+    "ProductoID": "6",
+    "Nombre": "Bolso",
+    "Descripcion": "Bolso de cuero sintético",
+    "Precio": 60,
+    "Categoria": {
+        "CategoriaID": 2,
+        "NombreCategoria": "Accesorios"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Gran espacio interior",
+            "Cliente": "Andrea"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Material de buena calidad",
+            "Cliente": "Daniela"
+        }
+    ]
+}
+
+{
+    "ProductoID": "7",
+    "Nombre": "Auriculares",
+    "Descripcion": "Auriculares inalámbricos",
+    "Precio": 45,
+    "Categoria": {
+        "CategoriaID": 3,
+        "NombreCategoria": "Electrónica"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Sonido excelente",
+            "Cliente": "Diego"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Buena duración de batería",
+            "Cliente": "Valeria"
+        }
+    ]
+}
+
+{
+    "ProductoID": "8",
+    "Nombre": "Laptop",
+    "Descripcion": "Laptop ultradelgada con SSD",
+    "Precio": 800,
+    "Categoria": {
+        "CategoriaID": 3,
+        "NombreCategoria": "Electrónica"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Muy rápida y ligera",
+            "Cliente": "José"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Excelente para trabajo remoto",
+            "Cliente": "Mónica"
+        }
+    ]
+}
+
+{
+    "ProductoID": "9",
+    "Nombre": "Silla de oficina",
+    "Descripcion": "Silla ergonómica con soporte lumbar",
+    "Precio": 150,
+    "Categoria": {
+        "CategoriaID": 4,
+        "NombreCategoria": "Muebles"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Muy cómoda para largas horas",
+            "Cliente": "Roberto"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Buen soporte para la espalda",
+            "Cliente": "Laura"
+        }
+    ]
+}
+
+{
+    "ProductoID": "10",
+    "Nombre": "Escritorio",
+    "Descripcion": "Escritorio de madera con cajones",
+    "Precio": 200,
+    "Categoria": {
+        "CategoriaID": 4,
+        "NombreCategoria": "Muebles"
+    },
+    "Comentarios": [
+        {
+            "ComentarioID": 1,
+            "Texto": "Muy espacioso y sólido",
+            "Cliente": "Ricardo"
+        },
+        {
+            "ComentarioID": 2,
+            "Texto": "Fácil de armar",
+            "Cliente": "Sara"
+        }
+    ]
+}
+
+db.desNormalizacion.find(
+    {},
+    {
+        Categoria: 0,
+        Comentarios: 0
+    }
+)
+
+db.productos.find(
+    {},
+    {
+        Comentarios: 0
+    }
+)
+
+db.productos.find(
+    {},
+    {
+        Categoria: 0
+    }
+)

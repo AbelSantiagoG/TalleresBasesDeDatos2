@@ -1,0 +1,66 @@
+[
+    { "ISBN": "978-3-16-148410-0", "Titulo": "El Arte de la Guerra", "AutorID": 1, "GeneroID": 1 },
+    { "ISBN": "978-0-123-45678-9", "Titulo": "Cien Años de Soledad", "AutorID": 2, "GeneroID": 2 },
+    { "ISBN": "978-1-234-56789-7", "Titulo": "1984", "AutorID": 3, "GeneroID": 3 },
+    { "ISBN": "978-0-765-43210-3", "Titulo": "Crimen y Castigo", "AutorID": 4, "GeneroID": 4 },
+    { "ISBN": "978-1-852-44567-4", "Titulo": "Orgullo y Prejuicio", "AutorID": 5, "GeneroID": 5 },
+    { "ISBN": "978-3-111-11111-5", "Titulo": "El Principito", "AutorID": 6, "GeneroID": 1 },
+    { "ISBN": "978-0-999-99999-1", "Titulo": "Don Quijote de la Mancha", "AutorID": 7, "GeneroID": 2 },
+    { "ISBN": "978-1-222-22222-8", "Titulo": "Matar a un Ruiseñor", "AutorID": 8, "GeneroID": 3 },
+    { "ISBN": "978-1-333-33333-4", "Titulo": "Los Miserables", "AutorID": 9, "GeneroID": 4 },
+    { "ISBN": "978-1-444-44444-0", "Titulo": "La Odisea", "AutorID": 10, "GeneroID": 5 }
+]
+
+[
+    { "AutorID": 1, "Nombre": "Sun Tzu", "Nacionalidad": "China" },
+    { "AutorID": 2, "Nombre": "Gabriel García Márquez", "Nacionalidad": "Colombiana" },
+    { "AutorID": 3, "Nombre": "George Orwell", "Nacionalidad": "Británica" },
+    { "AutorID": 4, "Nombre": "Fyodor Dostoyevsky", "Nacionalidad": "Rusa" },
+    { "AutorID": 5, "Nombre": "Jane Austen", "Nacionalidad": "Británica" },
+    { "AutorID": 6, "Nombre": "Antoine de Saint-Exupéry", "Nacionalidad": "Francesa" },
+    { "AutorID": 7, "Nombre": "Miguel de Cervantes", "Nacionalidad": "Española" },
+    { "AutorID": 8, "Nombre": "Harper Lee", "Nacionalidad": "Estadounidense" },
+    { "AutorID": 9, "Nombre": "Victor Hugo", "Nacionalidad": "Francesa" },
+    { "AutorID": 10, "Nombre": "Homero", "Nacionalidad": "Griega" }
+]
+  
+[
+    { "GeneroID": 1, "NombreGenero": "Filosofía" },
+    { "GeneroID": 2, "NombreGenero": "Realismo Mágico" },
+    { "GeneroID": 3, "NombreGenero": "Distopía" },
+    { "GeneroID": 4, "NombreGenero": "Novela Psicológica" },
+    { "GeneroID": 5, "NombreGenero": "Romance" },
+    { "GeneroID": 6, "NombreGenero": "Aventura" },
+    { "GeneroID": 7, "NombreGenero": "Épica" },
+    { "GeneroID": 8, "NombreGenero": "Ciencia Ficción" },
+    { "GeneroID": 9, "NombreGenero": "Literatura Clásica" },
+    { "GeneroID": 10, "NombreGenero": "Ensayo" }
+]
+
+$lookup: {
+    from: "autores",
+    localField: "AutorID",
+    foreignField: "AutorID",
+    as: "Autor"
+}
+
+lookup: {
+    from: "generos",
+    localField: "GeneroID",
+    foreignField: "GeneroID",
+    as: "Genero"
+}
+
+$lookup: {
+    from: "autores",
+    localField: "AutorID",
+    foreignField: "AutorID",
+    as: "Autor"
+}
+
+$lookup: {
+    from: "generos",
+    localField: "GeneroID",
+    foreignField: "GeneroID",
+    as: "Genero"
+}
